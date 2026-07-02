@@ -2,9 +2,10 @@
 ///
 /// Manages tasks with descriptions, completion status, and persistence.
 use std::fmt;
+use serde::{Deserialize, Serialize};
 
 /// A collection of tasks.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TaskStore {
     tasks: Vec<Task>,
 }
@@ -28,6 +29,16 @@ impl TaskStore {
     /// All tasks in insertion order.
     pub fn all(&self) -> &[Task] {
         &self.tasks
+    }
+
+    /// Serialize the store to a JSON string.
+    pub fn to_json(&self) -> Result<String, serde_json::Error> {
+        serde_json::to_string_pretty(self)
+    }
+
+    /// Deserialize a store from a JSON string.
+    pub fn from_json(json: &str) -> Result<Self, serde_json::Error> {
+        serde_json::from_str(json)
     }
 
     /// Mark a task as complete by index.
@@ -55,7 +66,7 @@ impl fmt::Display for TaskStore {
 }
 
 /// A single task item.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Task {
     pub description: String,
     pub done: bool,
@@ -156,5 +167,20 @@ mod tests {
         let (name, sub) = matches.subcommand().unwrap();
         assert_eq!(name, "done");
         assert_eq!(sub.get("index"), Some("1"));
+    }
+
+    // Cycle 7: Persistence — save and load tasks from JSON
+    #[test]
+    fn test_save_and_load_tasks() {
+        let mut store = TaskStore::new();
+        store.add(Task::new("Buy milk"));
+        store.add(Task::new("Write code"));
+        store.complete(0).unwrap();
+
+        let json = store.to_json().unwrap();
+        let loaded = TaskStore::from_json(&json).unwrap();
+        assert_eq!(loaded.len(), 2);
+        assert!(loaded.all()[0].done);
+        assert!(!loaded.all()[1].done);
     }
 }
