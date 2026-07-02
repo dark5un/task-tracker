@@ -29,6 +29,16 @@ impl TaskStore {
     pub fn all(&self) -> &[Task] {
         &self.tasks
     }
+
+    /// Mark a task as complete by index.
+    pub fn complete(&mut self, index: usize) -> Result<(), String> {
+        let max = self.tasks.len();
+        let task = self.tasks.get_mut(index).ok_or_else(|| {
+            format!("task index {index} out of range (max {max})")
+        })?;
+        task.done = true;
+        Ok(())
+    }
 }
 
 impl fmt::Display for TaskStore {
@@ -113,5 +123,38 @@ mod tests {
         let matches = cmd.parse(&["list".to_string()]).unwrap();
         let (name, _sub) = matches.subcommand().unwrap();
         assert_eq!(name, "list");
+    }
+
+    // Cycle 5: Mark a task as complete
+    #[test]
+    fn test_mark_task_complete() {
+        let mut store = TaskStore::new();
+        store.add(Task::new("Buy milk"));
+        store.complete(0).unwrap();
+        assert!(store.all()[0].done);
+    }
+
+    #[test]
+    fn test_complete_invalid_index_errors() {
+        let mut store = TaskStore::new();
+        store.add(Task::new("Buy milk"));
+        let err = store.complete(5).unwrap_err();
+        assert!(err.contains("index"));
+    }
+
+    // Cycle 6: done subcommand — parse index via mini-clap
+    #[test]
+    fn test_done_subcommand_parses_index() {
+        let done_cmd = Command::new("done")
+            .about("Mark a task as complete")
+            .arg(Arg::new("index"));
+        let cmd = Command::new("task-tracker")
+            .about("A simple task tracker")
+            .subcommand(done_cmd);
+
+        let matches = cmd.parse(&["done".to_string(), "1".to_string()]).unwrap();
+        let (name, sub) = matches.subcommand().unwrap();
+        assert_eq!(name, "done");
+        assert_eq!(sub.get("index"), Some("1"));
     }
 }
