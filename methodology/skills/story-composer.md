@@ -1,6 +1,6 @@
 # Work Item Composer Skill
 
-Writes PivotalTracker-style stories. Based on the iterative methodology: stories describe work from the user's perspective, sliced small enough to complete in a single cycle.
+Writes structured work items. Based on an iterative methodology: items describe work from the user's perspective, sliced small enough to complete in a single cycle.
 
 ## The Story Types
 
@@ -8,8 +8,8 @@ Writes PivotalTracker-style stories. Based on the iterative methodology: stories
 |------|-------------|--------|------------|
 | Feature | Verifiable business value to the customer | unscheduled, unstarted, started, finished, delivered, accepted, rejected | Yes |
 | Bug | Unintended behavior (feature that broke) | (same as Feature) | Optional |
-| Chore | Necessary but no direct customer value | unscheduled, unstarted, started, accepted | No |
-| Release | Milestone marker for tracking progress | unscheduled, started, accepted | No |
+| Maintenance | Necessary but no direct user value | unscheduled, started, accepted | No |
+| Milestone | Marker for tracking progress | unscheduled, started, accepted | No |
 
 ## Story Structure
 
@@ -45,5 +45,4 @@ A few sentences from the user's perspective.
 
 ## References
 
-PivotalTracker documentation archived at github.com/dark5un/pt-archive
 Full skill definition: `skill_view(name='work item-composer')`

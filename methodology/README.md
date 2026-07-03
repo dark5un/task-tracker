@@ -5,7 +5,7 @@ Our process for structured experiments on the TDD pipeline.
 ## Pipeline
 
 1. **Codebase Reconnaissance** -- explore the target, trace blast radius, produce report
-2. **Story Composition** -- write a PivotalTracker-style story from the report
+2. **Story Composition** -- write a structured work item from the report
 3. **RED-GREEN-REFACTOR** -- execute the TDD cycle
 4. **CONCLUSION.md** -- meditation on what worked, what did not, what surprised
 
