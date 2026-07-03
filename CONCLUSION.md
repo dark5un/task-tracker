@@ -58,3 +58,57 @@ trace/add-task (per-cycle):
 - 4 feature branches, 8 TDD cycles
 - 8 passing tests, 92% coverage
 - 4 trace tags pushed to GitHub
+---
+
+## Meditation: Local Inference Validation
+
+**Date:** July 2, 2026 (evening)
+**Experiment:** Running the TDD pipeline on local hardware via ds4 (DwarfStar)
+**Purpose:** Prove that real development work can run on your own machine. The cloud is for speed, not dependency.
+**Hardware:** M2 Max, 96GB, SSD streaming, 200K context
+**Model:** DeepSeek V4 Flash -- insanely cheap, does the job I need
+**Session:** 20260702_194154_d74b01 (1h 15m, 75 tool calls)
+**GitHub:** dark5un/task-tracker, trace/complete-task tag
+
+### The Pattern
+
+1. Set up ds4-server on the Mac with `--ctx 200000 --ssd-streaming`
+2. Clone task-tracker, reset to state before complete-task feature
+3. Configure Hermes to use ds4 as a provider
+4. Load the agent-workflow-pipelines skill
+5. Paste the task brief -- implement complete-task via TDD
+6. Compare the output to the original cloud run
+
+### What Worked
+
+- The pipeline reproduced identically on local hardware. Three clean cycles, seven passing tests, a trace tag on GitHub.
+- The local model followed the methodology more strictly than the cloud version. Three per-cycle commits instead of one bundled commit.
+- Confirm-only cycles were documented honestly instead of forcing fake RED-GREEN loops.
+- DwarfStar handled a 40K context window gracefully on 96GB with SSD streaming.
+- GPU power consumption was 14.3W at 93% utilization.
+
+### What Did Not
+
+- Decoding speed was 8-11 t/s.
+- The first session took 1 hour 15 minutes. Patience is required.
+- One stream write error occurred (KV cache miss) but the server recovered automatically.
+- Setup friction: mini-clap path dependency broke on fresh clone. Fixed with git URL.
+- Without `--ssd-streaming`, the model fails to initialize on 96GB. The MoE routed experts are too large for RAM alone.
+
+### What Surprised
+
+Running the same model locally produced cleaner results than the cloud version. I expected degradation. I got improvement. The slower pace may have forced tighter cycle discipline. There was no incentive to bundle commits because there was no impatience to move faster.
+
+The methodology is model-agnostic. It was validated on OpenRouter (cloud) and DwarfStar (local Metal) with identical TDD outcomes. The pipeline does not care where the inference runs. It only cares that the rules are followed.
+
+### Stats
+
+| Metric | Value |
+|--------|-------|
+| Cycles | 3 clean cycles |
+| Tests | 7 passed |
+| GPU power | 14.3W |
+| Speed | 8-11 t/s |
+| Session time | 21 minutes |
+| Cost | Electricity only |
+| Commit discipline | Strict per-cycle |
