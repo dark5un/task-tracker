@@ -4,11 +4,11 @@
 
 ---
 
-This is a continuation of the work @panagiotisxynos and I started on the TDD + LSP pipeline  -  but this time we added something that changes how you *review* agent-generated code.
+This is a continuation of the work @dark5un and I started on the TDD + LSP pipeline  -  but this time we added something that changes how you *review* agent-generated code.
 
 **The problem:** An AI agent goes through 10+ TDD cycles, each producing a passing test and implementation. But when you look at the repo, you see one commit. Where's the trace? Where's the reasoning?
 
-**The solution (from @panagiotisxynos):** git tags.
+**The solution (from @dark5un):** git tags.
 
 Here's the pattern we validated yesterday with a real Rust project (a task tracker CLI, 4 features, 8 TDD cycles, 92% coverage):
 
@@ -48,7 +48,7 @@ git log trace/add-task --oneline
 
 **What I'm thinking about next:** This pattern scales naturally to multi-agent parallel work using `git worktree`  -  each agent gets its own worktree + branch, commits independently, and the dispatcher squash-merges sequentially. But that's a future experiment.
 
-The idea and architecture are entirely @panagiotisxynos's  -  I'm just the padawan turning the cranks.
+The idea and architecture are entirely @dark5un's  -  I'm just the padawan turning the cranks.
 
 ---
 

@@ -1,8 +1,8 @@
-# Story Composer Skill
+# Work Item Composer Skill
 
-Writes PivotalTracker-style stories. Based on the Pivotal Labs methodology: stories describe work from the user's perspective, sliced small enough to complete in a single cycle.
+Writes PivotalTracker-style stories. Based on the iterative methodology: stories describe work from the user's perspective, sliced small enough to complete in a single cycle.
 
-## The Four Story Types
+## The Story Types
 
 | Type | Description | States | Estimated? |
 |------|-------------|--------|------------|
@@ -16,8 +16,8 @@ Writes PivotalTracker-style stories. Based on the Pivotal Labs methodology: stor
 ```
 ## Story: [one-line title]
 
-**Type:** [Feature | Bug | Chore | Release]
-**Epic:** [name of the epic this belongs to, if any]
+**Type:** [Feature | Bug | Maintenance | Milestone]
+**Theme:** [name of the epic this belongs to, if any]
 **Labels:** [blast-radius, affected-components, language, lsp-quality]
 
 **Description:**
@@ -46,4 +46,4 @@ A few sentences from the user's perspective.
 ## References
 
 PivotalTracker documentation archived at github.com/dark5un/pt-archive
-Full skill definition: `skill_view(name='story-composer')`
+Full skill definition: `skill_view(name='work item-composer')`

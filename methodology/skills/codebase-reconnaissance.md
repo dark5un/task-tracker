@@ -28,8 +28,8 @@ When assigned a bug, tech debt, or feature task in an existing codebase that has
 
 ### Phase 4: Handoff
 
-10. Save the report for story composition.
-11. Pass findings to the Story Composer skill.
+10. Save the report for work item creation.
+11. Pass findings to the work item composer skill.
 
 ## Output Format
 

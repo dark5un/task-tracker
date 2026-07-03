@@ -2,7 +2,7 @@
 
 **Date:** July 2, 2026
 **Project:** task-tracker CLI
-**Master:** Panos
+**Master:** @dark5un
 **Padawan:** Hermes Agent
 
 ## The Pattern

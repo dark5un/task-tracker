@@ -1,7 +1,7 @@
-## Story: MemMapFs.Create should not auto-create parent directories
+## Work Item: MemMapFs.Create should not auto-create parent directories
 
 **Type:** Bug
-**Epic:** Experiment 1: Go tech debt refactor
+**Theme:** Experiment 1: Go tech debt refactor
 **Labels:** language:go, lsp:gopls, codebase:existing, scope:tech-debt, experiment:1
 
 **Description:**
